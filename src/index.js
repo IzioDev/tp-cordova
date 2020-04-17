@@ -63,17 +63,13 @@ export class Application {
   onDeviceReady(e) {
     this.receivedEvent('deviceready');
 
-    const displayHomePage = () => {
-      this.router.switchToPage('home', ['COUCOU']);
-    };
-
     // If the actual page isn't the laoding page, we do not set a delay.
     if (window.location.hash && window.location.hash !== '#page-loading') {
-      displayHomePage();
+      this.router.switchToPage('home');
     } else {
       // It's just to display the spinner, else it get loaded too fast.
       setTimeout(() => {
-        displayHomePage();
+        this.router.switchToPage('home');
       }, 2000);
     }
   }

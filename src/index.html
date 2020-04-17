@@ -13,23 +13,131 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
   </head>
   <body>
-    <div data-role="page">
+    <!-- Loading page -->
+    <div data-role="page" id="page-loading">
+      <div class="centered">
+        <svg
+          width="105"
+          height="105"
+          viewBox="0 0 105 105"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="blue"
+        >
+          <circle cx="12.5" cy="12.5" r="12.5">
+            <animate
+              attributeName="fill-opacity"
+              begin="0s"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="12.5" cy="52.5" r="12.5" fill-opacity=".5">
+            <animate
+              attributeName="fill-opacity"
+              begin="100ms"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="52.5" cy="12.5" r="12.5">
+            <animate
+              attributeName="fill-opacity"
+              begin="300ms"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="52.5" cy="52.5" r="12.5">
+            <animate
+              attributeName="fill-opacity"
+              begin="600ms"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="92.5" cy="12.5" r="12.5">
+            <animate
+              attributeName="fill-opacity"
+              begin="800ms"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="92.5" cy="52.5" r="12.5">
+            <animate
+              attributeName="fill-opacity"
+              begin="400ms"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="12.5" cy="92.5" r="12.5">
+            <animate
+              attributeName="fill-opacity"
+              begin="700ms"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="52.5" cy="92.5" r="12.5">
+            <animate
+              attributeName="fill-opacity"
+              begin="500ms"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="92.5" cy="92.5" r="12.5">
+            <animate
+              attributeName="fill-opacity"
+              begin="200ms"
+              dur="1s"
+              values="1;.2;1"
+              calcMode="linear"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Home page -->
+    <div data-role="page" id="page-home">
       <div data-role="header">
-        <h1>Page Title</h1>
+        <h1>Choisissez vos avatars</h1>
       </div>
       <!-- /header -->
 
       <div role="main" class="ui-content">
-        <p>Page content goes here.</p>
+        <div class="ui-grid-a">
+          <div class="ui-block-a">
+            <img id="image-p1" />
+            <button player="1" class="add-image-button">Photo de J1</button>
+          </div>
+          <div class="ui-block-b">
+            <img id="image-p2" />
+            <button player="2" class="add-image-button">Photo de J2</button>
+          </div>
+        </div>
       </div>
       <!-- /content -->
-
-      <div data-role="footer">
-        <h4>Page Footers</h4>
-      </div>
-      <!-- /footer -->
     </div>
-    <!-- /page -->
     <script type="text/javascript" src="cordova.js"></script>
   </body>
 </html>

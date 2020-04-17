@@ -1,5 +1,8 @@
 import './styles/index.scss';
 import { Grille } from './models/grille';
+import { HomeController } from './controllers/homeController';
+import { Router } from './router';
+import { registeredControllers } from './registeredControllers';
 
 export class Application {
   /**
@@ -12,6 +15,41 @@ export class Application {
       this.onDeviceReady.bind(this),
       false
     );
+
+    // We do whant to use a router from the top level application.
+    this.router = new Router();
+
+    // Instanciate all controllers.
+    this.initiateControllers();
+  }
+
+  // Utils used to instanciate all controllers registered in
+  // `./registeredControllers`, note that homeController is mandatory.
+  initiateControllers() {
+    this.controllers = new Map();
+
+    registeredControllers.forEach((controllerName) => {
+      // We first fetch the ESMoule.
+      const controllerModule = require(`./controllers/${controllerName}Controller`);
+      // We find the controller property of it.
+      const controllerClassName = Object.keys(controllerModule).find(
+        (name) => name.indexOf('Controller') != -1
+      );
+
+      if (!controllerClassName) {
+        throw new Error(
+          `The Controller ${controllerName} should be named ${controllerName}Controller.`
+        );
+      }
+
+      // We create a new instance of this controller.
+      const instanciateController = new controllerModule[controllerClassName](
+        this.router
+      );
+
+      // We add it to the map, so we can have them all by their registered name.
+      this.controllers.set(controllerName, instanciateController);
+    });
   }
 
   /**
@@ -21,26 +59,36 @@ export class Application {
    * @param {Event} the deviceready event object
    */
   onDeviceReady(e) {
-    console.log('[Application#onDeviceReady] events = ', e);
-
-    // Initiate the grid
-    this.grille = new Grille();
-
     this.receivedEvent('deviceready');
 
-    navigator.camera.getPicture(console.log, console.log);
+    const displayHomePage = () => {
+      this.router.switchToPage('home');
+      this.controllers.get('home').onShow();
+    };
+
+    // If the actual page isn't the laoding page, we do not set a delay.
+    if (window.location.hash && window.location.hash !== '#page-loading') {
+      displayHomePage();
+    } else {
+      // It's just to display the spinner, else it get loaded too fast.
+      setTimeout(() => {
+        displayHomePage();
+      }, 2000);
+    }
   }
 
   // Update DOM on a Received Event
   receivedEvent(id) {
-    console.debug('[Application#receivedEvent] id = ', id);
+    console.log('[Application#receivedEvent] id = ', id);
   }
 }
 
+// When the DOM is ready, we bootstrap the application
+// by creating a new instance of the app.
 document.addEventListener(
   'DOMContentLoaded',
   () => {
-    console.log('jQuery Readys, now instantiate the Application');
+    console.log('jQuery Ready, now instantiate the Application');
     new Application();
   },
   false

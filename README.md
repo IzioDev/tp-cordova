@@ -13,6 +13,10 @@
 
 `phonegap serve` - sert les fichiers de `www` en ajoutant la couche cordova.
 
+Aller sur `http://localhost:3000`
+
 ## Juste lancer l'application :
 
-`cordova run` - lance l'application qui se trouve dans `www`.
+`cordova run [platform]` - lance l'application qui se trouve dans `www`.
+
+Choisir la platforme (par défaut c'est sensé être android).

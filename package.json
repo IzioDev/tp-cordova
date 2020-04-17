@@ -7,7 +7,7 @@
   "scripts": {
     "get-ip": "echo $(echo 'http://')$(ipconfig getifaddr en0)",
     "build": "webpack --mode=production",
-    "serve": "webpack-dev-server"
+    "serve": "webpack --watch --mode=production"
   },
   "keywords": [
     "ecosystem:cordova"
@@ -34,11 +34,13 @@
   },
   "dependencies": {
     "cordova-android": "^8.1.0",
+    "cordova-plugin-camera": "^4.1.0",
     "phaser": "^3.21.0"
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-camera": {}
     },
     "platforms": [
       "android"

@@ -6,7 +6,7 @@ export class Application {
    * Create the application instance
    */
   constructor() {
-    console.debug('Hello HelloWorld');
+    console.log('Hello HelloWorldssss');
     document.addEventListener(
       'deviceready',
       this.onDeviceReady.bind(this),
@@ -21,12 +21,14 @@ export class Application {
    * @param {Event} the deviceready event object
    */
   onDeviceReady(e) {
-    console.debug('[Application#onDeviceReady] event = ', e);
+    console.log('[Application#onDeviceReady] events = ', e);
 
     // Initiate the grid
     this.grille = new Grille();
 
     this.receivedEvent('deviceready');
+
+    navigator.camera.getPicture(console.log, console.log);
   }
 
   // Update DOM on a Received Event

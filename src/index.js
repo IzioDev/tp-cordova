@@ -16,9 +16,6 @@ export class Application {
       false
     );
 
-    // We do whant to use a router from the top level application.
-    this.router = new Router();
-
     // Instanciate all controllers.
     this.initiateControllers();
   }
@@ -27,6 +24,9 @@ export class Application {
   // `./registeredControllers`, note that homeController is mandatory.
   initiateControllers() {
     this.controllers = new Map();
+
+    // We do whant to use a router from the top level application.
+    this.router = new Router(this.controllers);
 
     registeredControllers.forEach((controllerName) => {
       // We first fetch the ESMoule.
@@ -50,6 +50,8 @@ export class Application {
       // We add it to the map, so we can have them all by their registered name.
       this.controllers.set(controllerName, instanciateController);
     });
+
+    this.router.setControllers(this.controllers);
   }
 
   /**
@@ -62,8 +64,7 @@ export class Application {
     this.receivedEvent('deviceready');
 
     const displayHomePage = () => {
-      this.router.switchToPage('home');
-      this.controllers.get('home').onShow();
+      this.router.switchToPage('home', ['COUCOU']);
     };
 
     // If the actual page isn't the laoding page, we do not set a delay.

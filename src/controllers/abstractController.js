@@ -13,7 +13,7 @@ export class AbstractController {
 
   onHide() {}
 
-  switchToPage(routeName) {
-    this.router.switchToPage(routeName);
+  switchToPage(routeName, state = null) {
+    this.router.switchToPage(routeName, state);
   }
 }

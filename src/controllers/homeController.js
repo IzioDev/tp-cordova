@@ -5,7 +5,7 @@ export class HomeController extends AbstractController {
     super(router);
   }
 
-  onShow() {
+  onShow(state) {
     console.log('Home controller showed up !');
   }
 

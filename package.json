@@ -7,7 +7,9 @@
   "scripts": {
     "get-ip": "echo $(echo 'http://')$(ipconfig getifaddr en0)",
     "build": "webpack --mode=production",
-    "serve": "webpack --watch --mode=production"
+    "serve": "webpack --watch --mode=production",
+    "phonegap:serve": "phonegap serve",
+    "dev": "concurrently \"npm run serve\" \"npm run phonegap:serve\""
   },
   "keywords": [
     "ecosystem:cordova"
@@ -35,7 +37,8 @@
   "dependencies": {
     "cordova-android": "^8.1.0",
     "cordova-plugin-camera": "^4.1.0",
-    "phaser": "^3.21.0"
+    "phaser": "^3.21.0",
+    "phonegap": "^9.0.0"
   },
   "cordova": {
     "plugins": {

@@ -88,7 +88,18 @@ export class GameController extends AbstractController {
         _this.game.playOnCell(x, y);
 
         _this.displayGrille();
+
+        _this.processWinConditions();
       }
     });
+  }
+
+  processWinConditions() {
+    const winner = this.game.getWinnerIfExists();
+
+    // We have a winner !
+    if (winner) {
+      console.log(winner);
+    }
   }
 }

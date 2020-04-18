@@ -22,11 +22,11 @@ export class Grille {
 
   getCaseStatus(x: number, y: number) {
     if (x < 0 || x > 2) {
-      throw new Error('X out of range');
+      throw new Error(`X out of range: ${x}`);
     }
 
     if (y < 0 || y > 2) {
-      throw new Error('Y out of range');
+      throw new Error(`Y out of range: ${y}`);
     }
 
     return this.cases[x][y];

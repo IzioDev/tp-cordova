@@ -13,7 +13,9 @@ export class GameController extends AbstractController {
     this.displayGrille();
   }
 
-  onHide() {}
+  onHide() {
+    $('.cell').off();
+  }
 
   displayGrille() {
     const cases = this.game.getGrille().getCases();
@@ -77,16 +79,10 @@ export class GameController extends AbstractController {
     $('.cell').on('click', function () {
       const cellHtmlElement = $(this);
 
-      console.log(cellHtmlElement);
-
       const x = parseInt(cellHtmlElement.attr('x')) - 1;
       const y = parseInt(cellHtmlElement.attr('y')) - 1;
 
-      console.log(x, y);
-
       const hasAlreadyBeenClicked = cellHtmlElement.attr('player');
-
-      console.log(hasAlreadyBeenClicked);
 
       if (!hasAlreadyBeenClicked) {
         _this.game.playOnCell(x, y);

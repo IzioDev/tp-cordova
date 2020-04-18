@@ -1,10 +1,12 @@
 import './styles/index.scss';
-import { Grille } from './models/grille';
-import { HomeController } from './controllers/homeController';
 import { Router } from './router';
+import { AbstractController } from './controllers/abstractController';
 import { registeredControllers } from './registeredControllers';
 
 export class Application {
+  router: Router;
+  controllers: Map<string, AbstractController> = new Map();
+
   /**
    * Create the application instance
    */
@@ -23,33 +25,21 @@ export class Application {
   // Utils used to instanciate all controllers registered in
   // `./registeredControllers`, note that homeController is mandatory.
   initiateControllers() {
-    this.controllers = new Map();
-
     // We do whant to use a router from the top level application.
-    this.router = new Router(this.controllers);
+    this.router = new Router();
 
-    registeredControllers.forEach((controllerName) => {
-      // We first fetch the ESMoule.
-      const controllerModule = require(`./controllers/${controllerName}Controller`);
-      // We find the controller property of it.
-      const controllerClassName = Object.keys(controllerModule).find(
-        (name) => name.indexOf('Controller') != -1
-      );
+    // For each controllers in registered controller, we instanciate it.
+    for (const controller of registeredControllers) {
+      // We create a new instance of this controller.
+      const instanciateController = new controller(this.router);
 
-      if (!controllerClassName) {
-        throw new Error(
-          `The Controller ${controllerName} should be named ${controllerName}Controller.`
-        );
+      if (!instanciateController.name) {
+        throw new Error(`Controller should have a name property.`);
       }
 
-      // We create a new instance of this controller.
-      const instanciateController = new controllerModule[controllerClassName](
-        this.router
-      );
-
       // We add it to the map, so we can have them all by their registered name.
-      this.controllers.set(controllerName, instanciateController);
-    });
+      this.controllers.set(instanciateController.name, instanciateController);
+    }
 
     this.router.setControllers(this.controllers);
   }
@@ -60,7 +50,7 @@ export class Application {
    * @emits {deviceready} a deviceready event
    * @param {Event} the deviceready event object
    */
-  onDeviceReady(e) {
+  onDeviceReady() {
     this.receivedEvent('deviceready');
 
     // If the actual page isn't the laoding page, we do not set a delay.
@@ -75,7 +65,7 @@ export class Application {
   }
 
   // Update DOM on a Received Event
-  receivedEvent(id) {
+  receivedEvent(id: string) {
     console.log('[Application#receivedEvent] id = ', id);
   }
 }

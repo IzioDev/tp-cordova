@@ -21,3 +21,17 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.player-avatar-image {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#start-play-button {
+  display: none;
+}
+
+.primary-btn {
+  background-color: #28a745;
+}

@@ -1,18 +1,18 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const host  = '0.0.0.0'
-const port  = 8080
+const host = '0.0.0.0';
+const port = 8080;
 
 module.exports = {
   entry: {
-    app: './src/index.js'
+    app: './src/index.ts',
   },
   output: {
-		path: path.resolve(__dirname, 'www'),
-		filename: "main.js"
+    path: path.resolve(__dirname, 'www'),
+    filename: 'main.js',
   },
   devServer: {
     host,
@@ -22,18 +22,18 @@ module.exports = {
     clientLogLevel: 'silent',
     inline: true,
     contentBase: path.resolve(__dirname, 'src'),
-    watchContentBase: true
+    watchContentBase: true,
   },
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
           output: {
-            comments: false
-          }
-        }
-      })
-    ]
+            comments: false,
+          },
+        },
+      }),
+    ],
   },
   module: {
     rules: [
@@ -44,53 +44,59 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              '@babel/preset-env'
-            ]
-          }
-        }
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       {
         test: /\.html$/,
         use: [
           {
             loader: 'html-loader',
-            options: {  minimize: true }
-          }
-        ]
+            options: { minimize: true },
+          },
+        ],
+      },
+      {
+        test: /\.ts?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: {
           loader: 'file-loader',
           options: {
-            esModule: false
-          }
-        }
+            esModule: false,
+          },
+        },
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
           },
           {
-            loader: 'sass-loader'
-          }
-        ]
-      }
-    ]
+            loader: 'sass-loader',
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/index.html',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: '[id].css'
-    })
-  ]
-}
+      chunkFilename: '[id].css',
+    }),
+  ],
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+};

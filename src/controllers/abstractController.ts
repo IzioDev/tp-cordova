@@ -1,6 +1,10 @@
+import { Router } from '../router';
+
 // Avoid missing implementation of basics controller methods.
-export class AbstractController {
-  constructor(router) {
+export abstract class AbstractController {
+  router: Router;
+
+  constructor(router: Router) {
     if (!router) {
       throw new Error(
         'If you overrided the constructor controller, make sure to pass the router in the super call'
@@ -9,11 +13,12 @@ export class AbstractController {
     this.router = router;
   }
 
-  onShow() {}
+  // State is possibly undefined
+  onShow(state: any) {}
 
   onHide() {}
 
-  switchToPage(routeName, state = null) {
+  switchToPage(routeName: string, state: any = null) {
     this.router.switchToPage(routeName, state);
   }
 }

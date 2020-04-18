@@ -12,8 +12,6 @@ export class HomeController extends AbstractController {
 
   // Setup logic
   onShow(state: any) {
-    console.log('Home controller showed up !');
-
     // Setup upload image button click event
     const addPlayerImageButtons = $('.add-image-button');
 
@@ -36,7 +34,6 @@ export class HomeController extends AbstractController {
         (player) => !player.avatarBase64Image
       );
 
-      console.log(isThereMissingAvatarOnPlayers);
       if (!isThereMissingAvatarOnPlayers) {
         _this.displayStartPlayButton();
       }
@@ -44,11 +41,18 @@ export class HomeController extends AbstractController {
   }
 
   displayStartPlayButton() {
-    $('#start-play-button').show();
+    $('#start-play-button')
+      .show()
+      .click(() => {
+        this.switchToPage('game', this.players);
+      });
   }
 
   // Clean logic
   onHide() {
-    console.log('Home controller hide !');
+    $('#start-play-button').hide().off();
+    $('.add-image-button').off();
+    $(`#image-p1`).attr('src', '');
+    $(`#image-p2`).attr('src', '');
   }
 }

@@ -1,4 +1,7 @@
 $bg: #fffdd0;
+$block-width: calc(100vw / 4);
+$block-height: calc(100vh / 4);
+$block-background: darken(white, 10%);
 
 html,
 body {
@@ -7,6 +10,18 @@ body {
 body {
   margin: 0;
   background-color: $bg;
+}
+
+.centered-horizontally {
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .centered {
@@ -34,4 +49,36 @@ body {
 
 .primary-btn {
   background-color: #28a745;
+}
+
+// Style taken from https://github.com/soundasleep/cordova-tictactoe/blob/084eef4119911bbaf340375365b4a43373634fc4/wwwsrc/styles/style.scss#L1
+.board {
+  border: 1px solid black;
+  margin: 2px;
+  margin-left: 0;
+  padding: 2px;
+  display: inline-block;
+  background: #69c;
+
+  .row {
+    margin: 0;
+    padding: 0;
+
+    .cell {
+      display: inline-block;
+      width: $block-width;
+      height: $block-height;
+      margin: 3px;
+      padding: 0;
+      background: $block-background;
+      border: 1px solid darken($block-background, 30%);
+
+      &:not([player]) {
+        &:hover {
+          background: darken($block-background, 5%);
+        }
+        cursor: pointer;
+      }
+    }
+  }
 }

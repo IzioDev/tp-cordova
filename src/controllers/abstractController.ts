@@ -14,7 +14,7 @@ export abstract class AbstractController {
   }
 
   // State is possibly undefined
-  onShow(state: any) {}
+  onShow(state?: any) {}
 
   onHide() {}
 

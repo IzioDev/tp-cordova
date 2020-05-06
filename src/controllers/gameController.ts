@@ -89,17 +89,21 @@ export class GameController extends AbstractController {
 
         _this.displayGrille();
 
-        _this.processWinConditions();
+        _this.processNewGameState();
       }
     });
   }
 
-  processWinConditions() {
+  processNewGameState() {
     const winner = this.game.getWinnerIfExists();
 
     // We have a winner !
     if (winner) {
       console.log(winner);
+    } else if (this.game.grille.areAllCellsPlayed()) {
+      console.log('Match Nul');
+    } else {
+      console.log('Game still running');
     }
   }
 }

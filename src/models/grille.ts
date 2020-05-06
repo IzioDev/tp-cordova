@@ -49,4 +49,15 @@ export class Grille {
   getCases() {
     return this.cases;
   }
+
+  areAllCellsPlayed(): boolean {
+    for (const lines of this.cases) {
+      for (const cells of lines) {
+        if (cells === ECaseStatus.VIDE) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }

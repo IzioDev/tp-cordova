@@ -114,7 +114,7 @@ export class Game {
       if (winner) {
         return winner;
       }
-      return null;
     }
+    return null;
   }
 }

@@ -99,11 +99,9 @@ export class GameController extends AbstractController {
 
     // We have a winner !
     if (winner) {
-      console.log(winner);
+      this.router.switchToPage("score", {players: this.game.players, winner});
     } else if (this.game.grille.areAllCellsPlayed()) {
-      console.log('Match Nul');
-    } else {
-      console.log('Game still running');
+      this.router.switchToPage("score", {players: this.game.players, winner: null});
     }
   }
 }

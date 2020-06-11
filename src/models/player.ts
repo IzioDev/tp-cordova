@@ -4,20 +4,28 @@ export class Player {
   number: number;
   nickName: string;
   avatarBase64Image: string;
+  victoryCount: number;
+  defeatCount: number;
 
   constructor(
     { playerNumber,
       nickName,
-      avatarBase64Image
+      avatarBase64Image,
+      victoryCount,
+      defeatCount
     }:
       { playerNumber?: number,
         nickName?: string,
         avatarBase64Image?: string
+        victoryCount?: number,
+        defeatCount?: number,
       })
   {
     this.number = playerNumber;
     this.nickName = nickName;
     this.avatarBase64Image = avatarBase64Image;
+    this.victoryCount = victoryCount ?? 0;
+    this.defeatCount = defeatCount ?? 0;
   }
 
   async takeAvatarPicture(): Promise<string> {
@@ -69,10 +77,35 @@ export class Player {
     }
   }
 
+  public static allFromLocalStorage(): Player[] {
+    const players: Player[] = [];
+
+    let index = 0;
+    while (true) {
+      const key = localStorage.key(index);
+
+      if (key === null) {
+        return players;
+      }
+
+      if (key.indexOf("player") !== -1) {
+        const player = Player.fromLocalStorage(key.replace("player-", ""));
+
+        if (player) {
+          players.push(player);
+        }
+      }
+
+      index++;
+    }
+  }
+
   saveToLocalStorage() {
     localStorage.setItem(`player-${this.nickName}`, JSON.stringify({
       nickName: this.nickName,
-      avatarBase64Image: this.avatarBase64Image
+      avatarBase64Image: this.avatarBase64Image,
+      victoryCount: this.victoryCount,
+      defeatCount: this.defeatCount,
     }))
   }
 }

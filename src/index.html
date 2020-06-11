@@ -185,7 +185,20 @@
       <!-- /header -->
 
       <div role="main" class="ui-content">
-
+        <p id="winner-message"></p>
+        <img style="display: none" id="winner-avatar"/>
+        <table data-role="table" class="ui-responsive">
+          <thead>
+             <tr>
+               <th data-priority="1">Pseudo</th>
+               <th data-priority="persist"><abbr title="Nombre de victoires">Victoire(s)</abbr></th>
+               <th data-priority="2"><abbr title="Nombre de défaites">Défaite(s)</abbr></th>
+               </th>
+            </tr>
+          </thead>
+          <tbody id="score-table-container">
+          </tbody>
+        </table>
       </div>
       <!-- /content -->
     </div>

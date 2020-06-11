@@ -56,6 +56,7 @@ export class Player {
           allowEdit: true,
           targetWidth: clientWidth / 4,
           targetHeight: scrollHeight / 4,
+          destinationType: 0
         }
       );
     });

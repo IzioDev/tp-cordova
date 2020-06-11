@@ -46,8 +46,8 @@ export class ScoreController extends AbstractController {
       tbodyContainerElement.append(`
         <tr>
             <th>${player.nickName}</th>
-            <th>${player.victoryCount}</th>
-            <th>${player.defeatCount}</th>
+            <td>${player.victoryCount}</td>
+            <td>${player.defeatCount}</td>
         </tr>
       `)
     }

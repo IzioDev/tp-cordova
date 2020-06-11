@@ -100,7 +100,11 @@ export class HomeController extends AbstractController {
   onHide() {
     $('#start-play-button').hide().off();
     $('.add-image-button').off();
+    $('.confirm-nickname').off();
     $(`#image-p1`).attr('src', '');
     $(`#image-p2`).attr('src', '');
+    $(`#nickname-1`).off();
+    $(`#nickname-2`).off();
+
   }
 }

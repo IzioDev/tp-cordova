@@ -7,6 +7,7 @@ export class Router {
   controllers: Map<string, AbstractController>;
 
   switchToPage(pageName: string, state?: any) {
+    console.log("ROUTER - switch to page", pageName);
     const controller = this.controllers.get(pageName);
 
     if (!controller) {

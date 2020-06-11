@@ -15,6 +15,7 @@ export class GameController extends AbstractController {
 
   onHide() {
     $('.cell').off();
+    $('#board-container').html("")
   }
 
   displayGrille() {

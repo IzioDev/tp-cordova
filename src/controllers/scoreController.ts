@@ -9,7 +9,14 @@ export class ScoreController extends AbstractController {
     super(router);
   }
 
+  onHide() {
+    $('#play-again-button').off();
+    $('#winner-message').text("");
+    $('#winner-avatar').attr("src", '').css("display", "none");
+  }
+
   onShow({players, winner}: {players: Player[], winner: Player | null}) {
+    console.log("winner", winner);
     const winnerMessageElement = $('#winner-message');
 
     if (winner) {
@@ -44,5 +51,10 @@ export class ScoreController extends AbstractController {
         </tr>
       `)
     }
+
+    $("#play-again-button").on("click", () => {
+      console.log("play again (to home)");
+      this.switchToPage("home");
+    })
   }
 }
